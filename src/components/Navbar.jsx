@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom'
 import useAuth from '../Hooks/useAuth'
 
 export default function Navbar() {
-    const {user} = useAuth();
+    const {user, logOut, setUser, setIsLoading} = useAuth();
     console.log(user)
+
+    const handleLogOut = async() => {
+        await logOut();
+        setUser(null);
+        setIsLoading(false)
+    }
     return (
         <nav className="navbar rounded-box justify-between gap-4 shadow">
             <div className="navbar-start">
@@ -124,10 +130,10 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li className="dropdown-footer gap-2">
-                            <a className="btn btn-error btn-soft btn-block" href="#">
+                            <button className="btn btn-error btn-soft btn-block" onClick={handleLogOut}>
                                 <span className="icon-[tabler--logout]"></span>
                                 Sign out
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>

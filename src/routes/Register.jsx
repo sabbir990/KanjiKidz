@@ -11,26 +11,26 @@ import axios from 'axios';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
-    const {createUser, updateUserProfile, isLoading, setIsLoading} = useAuth();
+    const { createUser, updateUserProfile, isLoading, setIsLoading } = useAuth();
     const navigate = useNavigate();
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }
 
-    const {mutateAsync : save_user} = useMutation({
-        mutationFn : async (user) => {
-            const {data} = await axios.post(`http://localhost:8000/post_user`, {...user, role : "user"});
+    const { mutateAsync: save_user } = useMutation({
+        mutationFn: async (user) => {
+            const { data } = await axios.post(`http://localhost:8000/post_user`, { ...user, role: "user" });
             return data;
-        }, 
-        onSuccess : () => {
+        },
+        onSuccess: () => {
             setIsLoading(false);
             toast.success("User registration successful!");
             navigate('/')
         }
     })
 
-    const handleRegisterSubmit = async(event) => {
+    const handleRegisterSubmit = async (event) => {
         event.preventDefault();
 
         const form = event.target;
@@ -40,21 +40,21 @@ const Register = () => {
         const password = form?.password?.value;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
 
-        if(!name || !email || !photo || !password){
+        if (!name || !email || !photo || !password) {
             return toast.error("Fill all the fields carefully!")
         }
 
-        if(!passwordRegex.test(password)){
+        if (!passwordRegex.test(password)) {
             return toast.error("Your password must contain at least one uppercase letter, one lowercase letter, one special character and one number!")
         }
 
-        try{
-            const {user} = await createUser(email, password);
+        try {
+            const { user } = await createUser(email, password);
             const image_url = await useHostImage(photo);
             await updateUserProfile(name, image_url)
-        
+
             await save_user(user);
-        }catch(error){
+        } catch (error) {
             setIsLoading(false)
             console.log(error);
             toast.error(error.message)
@@ -126,6 +126,7 @@ const Register = () => {
                     </div>
 
                     <button
+                        disabled={isLoading}
                         type="submit"
                         className="btn btn-success btn-block font-poppins"
                     >
