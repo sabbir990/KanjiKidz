@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useAuth from '../Hooks/useAuth'
 
 export default function Navbar() {
+    const {user} = useAuth();
+    console.log(user)
     return (
         <nav className="navbar rounded-box justify-between gap-4 shadow">
             <div className="navbar-start">
