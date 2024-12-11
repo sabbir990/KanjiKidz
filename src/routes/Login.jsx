@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Head_section from "../components/Head_section";
-import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { FaEyeSlash, FaGoogle, FaRegEye } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 function Login() {
     const [show, setShow] = useState(false)
-    const { signInUser, setIsLoading, isLoading } = useAuth();
+    const { signInUser, setIsLoading, isLoading, googleLogin } = useAuth();
     const navigate = useNavigate();
+
+    const {mutateAsync : save_user} = useMutation({
+        mutationFn : async (user) => {
+            const {data} = await axios.post(`http://localhost:8000/post_user`, {...user, role : "user"});
+            return data;
+        },
+
+        onSuccess : () => {
+            setIsLoading(false);
+            navigate('/');
+            toast.success("User Login Successful!")
+        }
+    })
 
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
@@ -35,6 +50,19 @@ function Login() {
 
     const handleToggleShow = () => {
         setShow(!show)
+    }
+
+    const handleGoogleLogin = async () => {
+        try{
+            setIsLoading(true);
+            const {user} = await googleLogin();
+            await save_user(user);
+            setIsLoading(false);
+        }catch(error){
+            setIsLoading(false)
+            console.log(error);
+            toast.error(error.message)
+        }
     }
     return (
         <div className="min-h-screen font-poppins flex items-center justify-center bg-gray-100">
@@ -92,6 +120,7 @@ function Login() {
                         </button>
                     </div>
                 </form>
+                <button className="btn btn-ghost btn-block mt-4" onClick={handleGoogleLogin}>Sign in with Google <FaGoogle /></button>
                 {/* Register Link */}
                 <p className="text-sm text-center text-gray-600 mt-4">
                     Don’t have an account?{" "}
