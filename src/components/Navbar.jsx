@@ -1,18 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../Hooks/useAuth'
+import { MdOutlinePlayLesson } from "react-icons/md";
+import { MdPersonalVideo } from "react-icons/md";
+import { BiLogIn } from "react-icons/bi";
+import Logo from './Logo';
+import useRole from '../Hooks/useRole';
 
 export default function Navbar() {
-    const {user, logOut, setUser, setIsLoading} = useAuth();
-    console.log(user)
+    const { user, logOut, setUser, setIsLoading } = useAuth();
+    const { role } = useRole();
 
-    const handleLogOut = async() => {
+    const handleLogOut = async () => {
         await logOut();
         setUser(null);
         setIsLoading(false)
     }
     return (
-        <nav className="navbar rounded-box justify-between gap-4 shadow">
+        <nav className="navbar rounded-box justify-between gap-4 shadow-sm">
             <div className="navbar-start">
                 <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:9]">
                     <button
@@ -32,111 +37,44 @@ export default function Navbar() {
                         aria-labelledby="dropdown-name"
                     >
                         <li>
-                            <a className="dropdown-item" href="#">
-                                Link 1
-                            </a>
+                            <Link to='/lessons' className="dropdown-item" href="#">
+                                <MdOutlinePlayLesson size={24} /> Lessons
+                            </Link>
                         </li>
                         <li>
-                            <a className="dropdown-item" href="#">
-                                Link 2
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Link 3
-                            </a>
-                        </li>
-                        <hr className="border-base-content/25 -mx-2 my-3" />
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Link 4
-                            </a>
+                            <Link to={'/tutorials'} className="dropdown-item" href="#">
+                                <MdPersonalVideo size={24} /> Tutorials
+                            </Link>
                         </li>
                     </ul>
                 </div>
             </div>
             <div className="navbar-center flex items-center">
-                <a
-                    className="link text-base-content/90 link-neutral text-xl font-semibold no-underline"
-                    href="#"
-                >
-                    FlyonUI
-                </a>
+                <Logo />
             </div>
             <div className="navbar-end items-center gap-4">
-                <Link className="btn btn-ghost shadow-none" to='/login'>Login</Link>
-                <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
-                    <button
-                        id="dropdown-scrollable"
-                        type="button"
-                        className="dropdown-toggle flex items-center"
-                        aria-haspopup="menu"
-                        aria-expanded="false"
-                        aria-label="Dropdown"
-                    >
-                        <div className="avatar">
-                            <div className="size-9.5 rounded-full">
-                                <img
-                                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
-                                    alt="avatar 1"
-                                />
-                            </div>
+                {user?.email ? (
+                    <div className="dropdown dropdown-end">
+                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                        <div className="w-10 rounded-full">
+                            <img
+                                alt={user?.displayName}
+                                src={user?.photoURL} />
                         </div>
-                    </button>
+                    </div>
                     <ul
-                        className="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="dropdown-avatar"
-                    >
-                        <li className="dropdown-header gap-2">
-                            <div className="avatar">
-                                <div className="w-10 rounded-full">
-                                    <img
-                                        src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
-                                        alt="avatar"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <h6 className="text-base-content/90 text-base font-semibold">
-                                    John Doe
-                                </h6>
-                                <small className="text-base-content/50">Admin</small>
-                            </div>
-                        </li>
+                        tabIndex={0}
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li>
-                            <a className="dropdown-item" href="#">
-                                <span className="icon-[tabler--user]"></span>
-                                My Profile
-                            </a>
+                            <Link to={'/user_profile'} className="justify-between">
+                                Profile
+                                <span className="badge">New</span>
+                            </Link>
                         </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                <span className="icon-[tabler--settings]"></span>
-                                Settings
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                <span className="icon-[tabler--receipt-rupee]"></span>
-                                Billing
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                <span className="icon-[tabler--help-triangle]"></span>
-                                FAQs
-                            </a>
-                        </li>
-                        <li className="dropdown-footer gap-2">
-                            <button className="btn btn-error btn-soft btn-block" onClick={handleLogOut}>
-                                <span className="icon-[tabler--logout]"></span>
-                                Sign out
-                            </button>
-                        </li>
+                        <li><button onClick={handleLogOut}>Logout</button></li>
                     </ul>
                 </div>
+                ) : <Link className="btn btn-ghost shadow-none" to='/login'><BiLogIn size={22} />Login</Link>}
             </div>
         </nav>
     )

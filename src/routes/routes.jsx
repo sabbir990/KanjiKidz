@@ -8,11 +8,23 @@ import Lesson_management from "./Dashboard/Lesson_management";
 import Add_lesson from "./Dashboard/Add_lesson";
 import Vocabulary_management from "./Dashboard/Vocabulary_management";
 import Add_vocabulary from "./Dashboard/Add_vocabulary";
+import Lessons from "./User_Routes/Lessons";
+import Lesson_details from "./User_Routes/Lesson_details";
 
 const router = createBrowserRouter([
     {
         path : '/',
         element : <Root />,
+        children : [
+            {
+                path : '/lessons',
+                element : <Lessons />
+            },
+            {
+                path : '/lesson/:id',
+                element : <Lesson_details />
+            }
+        ]
     },
     {
         path : '/dashboard',
