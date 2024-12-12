@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function App() {
   const location = useLocation();
@@ -19,9 +20,10 @@ function App() {
   return (
     <div className='font-poppins'>
       <Navbar />
-      <div className='p-4'>
+      <div className='p-4 min-h-[calc(100vh-4rem)]'>
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 }

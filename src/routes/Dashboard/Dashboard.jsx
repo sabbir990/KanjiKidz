@@ -14,7 +14,7 @@ function Dashboard() {
   return (
     <div>
       <Drawer />
-      <div className='px-4 py-6'>
+      <div className='px-4 py-6 min-h-[calc(100vh-5rem)]'>
         <Outlet />
       </div>
     </div>

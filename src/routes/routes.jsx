@@ -19,6 +19,10 @@ const router = createBrowserRouter([
         element : <Root />,
         children : [
             {
+                index : true,
+                element : <Lessons />
+            },
+            {
                 path : '/lessons',
                 element : <Lessons />
             },
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
         path : '/dashboard',
         element : <Dashboard />,
         children : [
+            {
+                index : true,
+                element : <Manage_users />
+            },
             {
                 path : '/dashboard/manage_users',
                 element : <Manage_users />

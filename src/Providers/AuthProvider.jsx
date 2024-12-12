@@ -40,7 +40,9 @@ export default function AuthProvider({children}) {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if(user){
           setUser(user);
+          setIsLoading(false);
         }else{
+          setIsLoading(false)
           console.log("Already logged out!")
         }
 

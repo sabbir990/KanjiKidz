@@ -2,11 +2,12 @@ import React from 'react'
 import Logo from './Logo'
 import useAuth from '../Hooks/useAuth'
 import useRole from '../Hooks/useRole'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Drawer() {
     const { role } = useRole();
-    const { user } = useAuth();
+    const { user, logOut, setUser } = useAuth();
+    const navigate = useNavigate();
     return (
         <div>
             <header className="flex font-poppins flex-wrap  md:justify-start md:flex-nowrap z-50 w-full bg-white border-b border-gray-200 dark:bg-neutral-800 dark:border-neutral-700">
@@ -153,6 +154,11 @@ export default function Drawer() {
                                 <strong>Last Login:</strong>{" "}
                                 {new Date(user?.metadata.lastSignInTime).toLocaleString()}
                             </li>
+                            <li><button onClick={async () => {
+                                await logOut();
+                                setUser(null);
+                                navigate('/login');
+                            }} className='btn btn-error text-white'>Log Out</button></li>
                         </ul>
                     </div>
                 </div>
