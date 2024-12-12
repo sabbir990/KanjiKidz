@@ -5,10 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import Edit_vocabulary_modal from '../../Modals/Edit_vocabulary_modal';
+import Delete_vocabulary_modal from '../../Modals/Delete_vocabulary_modal';
 
 export default function Vocabulary_management() {
     const [lessonFilter, setLessonFilter] = useState('');
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [selectedVocabularyID, setSelectedVocabularyID] = useState(null);
     const { data: all_vocabularies, isLoading, refetch } = useQuery({
         queryKey: ['all_vocabularies'],
@@ -33,6 +35,15 @@ export default function Vocabulary_management() {
 
     const closeEditModal = () => {
         setIsEditModalOpen(false)
+    }
+
+    const openDeleteModal = (id) => {
+        setSelectedVocabularyID(id);
+        setIsDeleteModalOpen(true)
+    }
+
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false)
     }
 
     return (
@@ -91,7 +102,7 @@ export default function Vocabulary_management() {
                                             Update
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(vocab?._id)}
+                                            onClick={() => openDeleteModal(vocab?._id)}
                                             className="px-2 py-1 text-red-500 hover:text-red-700"
                                         >
                                             Delete
@@ -101,6 +112,7 @@ export default function Vocabulary_management() {
                             ))}
 
                             {isEditModalOpen && <Edit_vocabulary_modal isOpen={isEditModalOpen} close={closeEditModal} refetch={refetch} _id={selectedVocabularyID} />}
+                            {isDeleteModalOpen && <Delete_vocabulary_modal isOpen={isDeleteModalOpen} close={closeDeleteModal} refetch={refetch} _id={selectedVocabularyID} />}
                         </tbody>
                     </table>
                 </div>
