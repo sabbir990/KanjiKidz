@@ -14,42 +14,55 @@ import Tutorials from "./User_Routes/Tutorials";
 import User_profile from "./User_Routes/User_profile";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import UserRoute from "./UserRoute";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <PrivateRoute>
-            <Root />
+            <UserRoute>
+                <Root />
+            </UserRoute>
         </PrivateRoute>,
         children: [
             {
                 index: true,
                 element: <PrivateRoute>
-                    <Lessons />
+                    <UserRoute>
+                        <Lessons />
+                    </UserRoute>
                 </PrivateRoute>
             },
             {
                 path: '/lessons',
                 element: <PrivateRoute>
-                    <Lessons />
+                    <UserRoute>
+                        <Lessons />
+                    </UserRoute>
                 </PrivateRoute>
             },
             {
                 path: '/lesson/:id',
                 element: <PrivateRoute>
-                    <Lesson_details />
+                    <UserRoute>
+                        <Lesson_details />
+                    </UserRoute>
                 </PrivateRoute>
             },
             {
                 path: '/tutorials',
                 element: <PrivateRoute>
-                    <Tutorials />
+                    <UserRoute>
+                        <Tutorials />
+                    </UserRoute>
                 </PrivateRoute>
             },
             {
                 path: '/user_profile',
                 element: <PrivateRoute>
-                    <User_profile />
+                    <UserRoute>
+                        <User_profile />
+                    </UserRoute>
                 </PrivateRoute>
             }
         ]

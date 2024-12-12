@@ -4,25 +4,25 @@ import useRole from '../Hooks/useRole';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 
-export default function AdminRoute({ children }) {
+export default function UserRoute({ children }) {
     const { user, logOut } = useAuth();
     const { role, isPending } = useRole();
     const navigate = useNavigate();
 
     if (isPending) {
         return (
-            <div className='flex items-center justify-center mt-4 h-screen'>
+            <div className='flex items-center justify-center mt-4'>
                 <TbFidgetSpinner size={34} className='animate-spin' />
             </div>
         );
     }
 
-    if (role !== 'admin') {
+    if(role !== 'user'){
         logOut();
         navigate('/login')
     }
 
     else{
-        return children;
+        return children
     }
 }
