@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../Hooks/useAuth'
 import { MdOutlinePlayLesson } from "react-icons/md";
 import { MdPersonalVideo } from "react-icons/md";
@@ -10,12 +10,13 @@ import useRole from '../Hooks/useRole';
 export default function Navbar() {
     const { user, logOut, setUser, setIsLoading } = useAuth();
     const { role } = useRole();
-    console.log(user)
+    const navigate = useNavigate();
 
     const handleLogOut = async () => {
         await logOut();
         setUser(null);
         setIsLoading(false)
+        navigate('/login');
     }
     return (
         <nav className="navbar rounded-box justify-between gap-4 shadow-sm">
