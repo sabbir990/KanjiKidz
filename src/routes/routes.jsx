@@ -3,6 +3,7 @@ import Root from "./Root";
 import Dashboard from "./Dashboard/Dashboard";
 import Login from "./Login";
 import Register from "./Register";
+import Manage_users from "./Dashboard/Manage_users";
 
 const router = createBrowserRouter([
     {
@@ -11,7 +12,13 @@ const router = createBrowserRouter([
     },
     {
         path : '/dashboard',
-        element : <Dashboard />
+        element : <Dashboard />,
+        children : [
+            {
+                path : '/dashboard/manage_users',
+                element : <Manage_users />
+            }
+        ]
     },
     {
         path : '/login',

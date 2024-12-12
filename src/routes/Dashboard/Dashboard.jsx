@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import "preline/preline";
 import Drawer from '../../components/Drawer';
@@ -14,6 +14,9 @@ function Dashboard() {
   return (
     <div>
       <Drawer />
+      <div className='px-4 py-6'>
+        <Outlet />
+      </div>
     </div>
   );
 }

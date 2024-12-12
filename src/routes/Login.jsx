@@ -140,7 +140,7 @@ function Login() {
                         <button
                             disabled={isLoading}
                             type="submit"
-                            className="btn btn-success btn-block font-semibold"
+                            className="btn btn-info btn-block font-semibold"
                         >
                             {isLoading ? <TbFidgetSpinner size={20} className="animate-spin mx-auto" /> : "Login"}
                         </button>
