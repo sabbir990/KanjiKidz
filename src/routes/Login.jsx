@@ -10,21 +10,47 @@ import axios from "axios";
 
 function Login() {
     const [show, setShow] = useState(false)
-    const { signInUser, setIsLoading, isLoading, googleLogin } = useAuth();
+    const { signInUser, setIsLoading, isLoading, googleLogin, user } = useAuth();
     const navigate = useNavigate();
 
-    const {mutateAsync : save_user} = useMutation({
-        mutationFn : async (user) => {
-            const {data} = await axios.post(`http://localhost:8000/post_user`, {...user, role : "user"});
+    const { mutateAsync: save_user } = useMutation({
+        mutationFn: async (user) => {
+            const { data } = await axios.post(`http://localhost:8000/post_user`, { ...user, role: "user" });
             return data;
         },
 
-        onSuccess : () => {
+        onSuccess: () => {
             setIsLoading(false);
             navigate('/');
             toast.success("User Login Successful!")
         }
     })
+
+    const verifyUser = async (email) => {
+        try {
+            if (!email) {
+                throw new Error("Email is required.");
+            }
+
+            console.log("Starting API call...");
+            const response = await axios.get(`http://localhost:8000/my_data/${email}`);
+            console.log("API call complete. Response received:", response);
+
+            const { data } = response;
+
+            if (data?.role === "admin") {
+                toast.success("Welcome to Admin Dashboard!");
+                navigate("/dashboard");
+            } else {
+                toast.success("User login successful!");
+                navigate("/");
+            }
+        } catch (error) {
+            console.error("Error during user verification:", error);
+            toast.error(error.response?.data?.message || error.message || "Error verifying user role.");
+        }
+    };
+
 
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
@@ -38,8 +64,7 @@ function Login() {
 
             await signInUser(email, password);
 
-            navigate('/');
-            toast.success("Signing in user successful!")
+            await verifyUser(email);
             setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
@@ -53,12 +78,13 @@ function Login() {
     }
 
     const handleGoogleLogin = async () => {
-        try{
+        try {
             setIsLoading(true);
-            const {user} = await googleLogin();
+            const { user } = await googleLogin();
             await save_user(user);
+            await verifyUser(user?.email);
             setIsLoading(false);
-        }catch(error){
+        } catch (error) {
             setIsLoading(false)
             console.log(error);
             toast.error(error.message)
@@ -114,7 +140,7 @@ function Login() {
                         <button
                             disabled={isLoading}
                             type="submit"
-                            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="btn btn-success btn-block font-semibold"
                         >
                             {isLoading ? <TbFidgetSpinner size={20} className="animate-spin mx-auto" /> : "Login"}
                         </button>
