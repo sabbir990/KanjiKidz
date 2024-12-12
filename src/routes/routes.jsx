@@ -6,6 +6,8 @@ import Register from "./Register";
 import Manage_users from "./Dashboard/Manage_users";
 import Lesson_management from "./Dashboard/Lesson_management";
 import Add_lesson from "./Dashboard/Add_lesson";
+import Vocabulary_management from "./Dashboard/Vocabulary_management";
+import Add_vocabulary from "./Dashboard/Add_vocabulary";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
             {
                 path : '/dashboard/add_lesson',
                 element : <Add_lesson />
+            },
+            {
+                path : "/dashboard/vocabulary_management",
+                element : <Vocabulary_management />
+            },
+            {
+                path : "/dashboard/add_vocabulary",
+                element : <Add_vocabulary />
             }
         ]
     },
