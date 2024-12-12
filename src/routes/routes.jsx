@@ -13,6 +13,7 @@ import Lesson_details from "./User_Routes/Lesson_details";
 import Tutorials from "./User_Routes/Tutorials";
 import User_profile from "./User_Routes/User_profile";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -56,43 +57,57 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element: <PrivateRoute>
-            <Dashboard />
+            <AdminRoute>
+                <Dashboard />
+            </AdminRoute>
         </PrivateRoute>,
         children: [
             {
                 index: true,
                 element: <PrivateRoute>
-                    <Manage_users />
+                    <AdminRoute>
+                        <Manage_users />
+                    </AdminRoute>
                 </PrivateRoute>
             },
             {
                 path: '/dashboard/manage_users',
                 element: <PrivateRoute>
-                    <Manage_users />
+                    <AdminRoute>
+                        <Manage_users />
+                    </AdminRoute>
                 </PrivateRoute>
             },
             {
                 path: '/dashboard/lesson_management',
                 element: <PrivateRoute>
-                    <Lesson_management />
+                    <AdminRoute>
+                        <Lesson_management />
+                    </AdminRoute>
                 </PrivateRoute>
             },
             {
                 path: '/dashboard/add_lesson',
                 element: <PrivateRoute>
-                    <Add_lesson />
+                    <AdminRoute>
+                        <Add_lesson />
+                    </AdminRoute>
                 </PrivateRoute>
             },
             {
                 path: "/dashboard/vocabulary_management",
                 element: <PrivateRoute>
-                    <Vocabulary_management />
+                    <AdminRoute>
+                        <Vocabulary_management />
+                    </AdminRoute>
                 </PrivateRoute>
             },
             {
                 path: "/dashboard/add_vocabulary",
                 element: <PrivateRoute>
-                    <Add_vocabulary />
+                    <AdminRoute>
+                        <Add_vocabulary />
+                    </AdminRoute>
                 </PrivateRoute>
             }
         ]
