@@ -10,6 +10,7 @@ import Vocabulary_management from "./Dashboard/Vocabulary_management";
 import Add_vocabulary from "./Dashboard/Add_vocabulary";
 import Lessons from "./User_Routes/Lessons";
 import Lesson_details from "./User_Routes/Lesson_details";
+import Tutorials from "./User_Routes/Tutorials";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path : '/lesson/:id',
                 element : <Lesson_details />
+            },
+            {
+                path : '/tutorials',
+                element : <Tutorials />
             }
         ]
     },
