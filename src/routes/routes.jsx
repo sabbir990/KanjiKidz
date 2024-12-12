@@ -11,6 +11,7 @@ import Add_vocabulary from "./Dashboard/Add_vocabulary";
 import Lessons from "./User_Routes/Lessons";
 import Lesson_details from "./User_Routes/Lesson_details";
 import Tutorials from "./User_Routes/Tutorials";
+import User_profile from "./User_Routes/User_profile";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path : '/tutorials',
                 element : <Tutorials />
+            },
+            {
+                path : '/user_profile',
+                element : <User_profile />
             }
         ]
     },

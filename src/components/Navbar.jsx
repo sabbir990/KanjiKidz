@@ -10,6 +10,7 @@ import useRole from '../Hooks/useRole';
 export default function Navbar() {
     const { user, logOut, setUser, setIsLoading } = useAuth();
     const { role } = useRole();
+    console.log(user)
 
     const handleLogOut = async () => {
         await logOut();
