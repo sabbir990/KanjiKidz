@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Edit_lesson_modal from '../../Modals/Edit_lesson_modal';
+import Delete_lesson_modal from '../../Modals/Delete_lesson_modal';
 
 export default function Lesson_management() {
     const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
 
     const { data: all_lessons, isPending, refetch } = useQuery({
         queryKey: ['all_lessons'],
@@ -23,6 +25,14 @@ export default function Lesson_management() {
 
     const closeEditModal = () => {
         setIsOpenEditModal(false)
+    }
+
+    const openDeleteModal = () => {
+        setIsOpenDeleteModal(true)
+    }
+    
+    const closeDeleteModal = () => {
+        setIsOpenDeleteModal(false)
     }
 
     return (
@@ -60,12 +70,13 @@ export default function Lesson_management() {
                                             </button>
                                             <button
                                                 className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition-all"
-                                                onClick={() => alert('Delete Lesson')}
+                                                onClick={openDeleteModal}
                                             >
                                                 Delete
                                             </button>
                                         </td>
                                         {isOpenEditModal && <Edit_lesson_modal isOpen={isOpenEditModal} close={closeEditModal} _id={lesson?._id} refetch={refetch} />}
+                                        {isOpenDeleteModal && <Delete_lesson_modal isOpen={isOpenDeleteModal} close={closeDeleteModal} _id={lesson?._id} refetch={refetch} />}
                                     </tr>
                                 ))}
                             </tbody>
