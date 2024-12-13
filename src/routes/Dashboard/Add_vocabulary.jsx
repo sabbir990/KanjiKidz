@@ -14,7 +14,7 @@ export default function Add_vocabulary() {
 
     const { mutateAsync: addVocabulary } = useMutation({
         mutationFn: async (vocabulary) => {
-            const { data } = await axios.post('http://localhost:8000/add_vocabulary', vocabulary);
+            const { data } = await axios.post('https://kanjikids-server.vercel.app/add_vocabulary', vocabulary);
             return data;
         },
         onSuccess: () => {

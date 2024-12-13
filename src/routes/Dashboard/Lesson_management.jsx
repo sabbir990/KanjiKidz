@@ -14,7 +14,7 @@ export default function Lesson_management() {
     const { data: all_lessons, isPending, refetch } = useQuery({
         queryKey: ['all_lessons'],
         queryFn: async () => {
-            const { data } = await axios.get(`http://localhost:8000/all_lessons`);
+            const { data } = await axios.get(`https://kanjikids-server.vercel.app/all_lessons`);
             return data;
         }
     })

@@ -15,7 +15,7 @@ function Login() {
 
     const { mutateAsync: save_user } = useMutation({
         mutationFn: async (user) => {
-            const { data } = await axios.post(`http://localhost:8000/post_user`, { ...user, role: "user" });
+            const { data } = await axios.post(`https://kanjikids-server.vercel.app/post_user`, { ...user, role: "user" });
             return data;
         },
 
@@ -33,7 +33,7 @@ function Login() {
             }
 
             console.log("Starting API call...");
-            const response = await axios.get(`http://localhost:8000/my_data/${email}`);
+            const response = await axios.get(`https://kanjikids-server.vercel.app/my_data/${email}`);
             console.log("API call complete. Response received:", response);
 
             const { data } = response;

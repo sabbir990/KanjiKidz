@@ -15,7 +15,7 @@ export default function Vocabulary_management() {
     const { data: all_vocabularies, isLoading, refetch } = useQuery({
         queryKey: ['all_vocabularies'],
         queryFn: async () => {
-            const { data } = await axios.get('http://localhost:8000/all_vocabularies');
+            const { data } = await axios.get('https://kanjikids-server.vercel.app/all_vocabularies');
             return data;
         },
     });

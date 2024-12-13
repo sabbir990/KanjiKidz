@@ -12,14 +12,14 @@ export default function Manage_users() {
     const { data: all_users, isLoading, refetch } = useQuery({
         queryKey: ['all_users'],
         queryFn: async () => {
-            const { data } = await axios.get('http://localhost:8000/all_users');
+            const { data } = await axios.get('https://kanjikids-server.vercel.app/all_users');
             return data
         }
     })
 
     const handleRoleUpdate = async (userId, newRole) => {
         try {
-            await axios.patch(`http://localhost:8000/update_role/${userId}`, { role: newRole });
+            await axios.patch(`https://kanjikids-server.vercel.app/update_role/${userId}`, { role: newRole });
             refetch();
             toast.success("Updating user role is successful!")
         } catch (error) {

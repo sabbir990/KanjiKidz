@@ -11,14 +11,14 @@ export default function Edit_vocabulary_modal({ isOpen, close, refetch, _id }) {
   const {data : selectedVocabulary} = useQuery({
     queryKey : ['selected_vocabulary', _id],
     queryFn : async() => {
-      const {data} = await axios.get(`http://localhost:8000/selected_vocabulary/${_id}`);
+      const {data} = await axios.get(`https://kanjikids-server.vercel.app/selected_vocabulary/${_id}`);
       return data
     }
   })
 
   const {mutateAsync : update_vocabulary} = useMutation({
     mutationFn : async(vocabulary) => {
-      const {data} = await axios.patch(`http://localhost:8000/update_vocabulary/${_id}`, vocabulary);
+      const {data} = await axios.patch(`https://kanjikids-server.vercel.app/update_vocabulary/${_id}`, vocabulary);
       return data;
     },
 

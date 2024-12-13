@@ -9,7 +9,7 @@ export default function Tutorials() {
     const {data : all_tutorials, isLoading} = useQuery({
         queryKey : ['all_tutorials'],
         queryFn : async() => {
-            const {data} = await axios.get(`http://localhost:8000/all_tutorials`);
+            const {data} = await axios.get(`https://kanjikids-server.vercel.app/all_tutorials`);
             return data
         }
     })

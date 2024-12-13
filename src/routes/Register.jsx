@@ -20,7 +20,7 @@ const Register = () => {
 
     const { mutateAsync: save_user } = useMutation({
         mutationFn: async (user) => {
-            const { data } = await axios.post(`http://localhost:8000/post_user`, { ...user, role: "user" });
+            const { data } = await axios.post(`https://kanjikids-server.vercel.app/post_user`, { ...user, role: "user" });
             return data;
         },
         onSuccess: () => {

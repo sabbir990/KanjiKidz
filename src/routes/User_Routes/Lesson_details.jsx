@@ -19,7 +19,7 @@ export default function Lesson_details() {
     const { data: lesson_details, isPending } = useQuery({
         queryKey: ['lesson_details', id],
         queryFn: async () => {
-            const { data } = await axios.get(`http://localhost:8000/lesson_details/${id}`);
+            const { data } = await axios.get(`https://kanjikids-server.vercel.app/lesson_details/${id}`);
             return data;
         },
     });

@@ -13,7 +13,7 @@ export default function Add_lesson() {
 
     const { mutateAsync: add_lesson } = useMutation({
         mutationFn: async (lesson) => {
-            const { data } = await axios.post(`http://localhost:8000/add_lesson`, lesson)
+            const { data } = await axios.post(`https://kanjikids-server.vercel.app/add_lesson`, lesson)
             return data
         },
 

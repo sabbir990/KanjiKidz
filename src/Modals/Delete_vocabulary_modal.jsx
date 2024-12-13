@@ -11,7 +11,7 @@ export default function Delete_vocabulary_modal({ isOpen, close, _id, refetch })
     const {isLoading, setIsLoading} = useAuth()
     const {mutateAsync : delete_vocabulary} = useMutation({
         mutationFn : async() => {
-            const {data} = await axios.delete(`http://localhost:8000/delete_vocabulary/${_id}`);
+            const {data} = await axios.delete(`https://kanjikids-server.vercel.app/delete_vocabulary/${_id}`);
             return data;
         },
 

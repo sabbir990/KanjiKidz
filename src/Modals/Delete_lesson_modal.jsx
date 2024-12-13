@@ -12,7 +12,7 @@ export default function Delete_lesson_modal({ isOpen, close, refetch, _id }) {
 
     const { mutateAsync: delete_lesson } = useMutation({
         mutationFn: async () => {
-            const { data } = await axios.delete(`http://localhost:8000/delete_lesson/${_id}`);
+            const { data } = await axios.delete(`https://kanjikids-server.vercel.app/delete_lesson/${_id}`);
             return data;
         },
 

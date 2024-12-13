@@ -17,7 +17,7 @@ export default function EditLessonModal({ isOpen, close, _id, refetch }) {
     const { data: selectedLesson } = useQuery({
         queryKey: ['selectedLesson', _id],
         queryFn: async () => {
-            const { data } = await axios.get(`http://localhost:8000/single_lesson/${_id}`);
+            const { data } = await axios.get(`https://kanjikids-server.vercel.app/single_lesson/${_id}`);
             return data;
         },
     });
@@ -34,7 +34,7 @@ export default function EditLessonModal({ isOpen, close, _id, refetch }) {
 
     const { mutateAsync: updateLesson } = useMutation({
         mutationFn: async (lesson) => {
-            const { data } = await axios.patch(`http://localhost:8000/update_lesson/${_id}`, lesson);
+            const { data } = await axios.patch(`https://kanjikids-server.vercel.app/update_lesson/${_id}`, lesson);
             return data;
         },
         onSuccess: () => {
